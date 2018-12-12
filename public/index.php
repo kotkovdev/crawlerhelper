@@ -31,6 +31,10 @@ $container['view'] = function($container) {
     return $view;
 };
 
+$container['AnalyzeController'] = function() {
+    return new App\Controllers\AnalyzeController();
+};
+
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';
 
