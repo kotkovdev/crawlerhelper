@@ -19,17 +19,8 @@ $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
 $container = $app->getContainer();
 
-$container['view'] = function($container) {
-    $view = new \Slim\Views\Twig(__DIR__ .'/../templates/', [
-        //'cache' => __DIR__ . '/../cache/'
-    ]);
-
-    $router = $container->get('router');
-    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
-    $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
-
-    return $view;
-};
+//Database
+require __DIR__ . '/../src/database.php';
 
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';

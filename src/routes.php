@@ -3,19 +3,12 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-// Routes
-
-/*$app->get('/[{name}]', function (Request $request, Response $response, array $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
-
-    // Render index view
-    return $this->renderer->render($response, 'index.html', $args);
-});*/
-
-/*$app->get('/[{name}]', function($request, $response, $args) {
-    return $this->view->render($response, 'index.twig');
-});*/
-
+/*
+ * GET
+ */
 $app->get('/', App\Controllers\AnalyzeController::class);
 $app->get('/save', App\Controllers\SaveController::class);
+/*
+ * POST
+ */
+$app->get('/processor', App\Controllers\ProcessorController::class);
