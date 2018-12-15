@@ -1,0 +1,42 @@
+{%  extends "layout.twig" %}
+
+{% block body %}
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h3 class="text-center title-2">Download and save entire save</h3>
+                </div>
+                <hr>
+                <form action="" method="post" novalidate="novalidate">
+                    <div class="form-group">
+                        <label for="sites">Site(s):</label>
+                        <textarea name="sites" id="sites" cols="80" rows="10" class="form-control"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="depth">Max Depth</label>
+                            <input type="number" name="depth" id="depth" value="10" class="form-control">
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+                            <label class="form-check-label" for="exampleCheck1">Ignore robots.txt</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+                            <label class="form-check-label" for="exampleCheck1">span-hosts</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+                            <label class="form-check-label" for="exampleCheck1">convert-links</label>
+                        </div>
+                    </div>
+                    <div class="form-group float-right">
+                        <button class="btn btn-link">Save changes</button>
+                        <button class="btn btn-primary">Processing</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

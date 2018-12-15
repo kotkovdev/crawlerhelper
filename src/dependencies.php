@@ -1,4 +1,6 @@
 <?php
+use App\Controllers\AnalyzeController;
+use App\Controllers\DownloadController;
 // DIC configuration
 
 $container = $app->getContainer();
@@ -17,3 +19,11 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+$container['AnalyzeController'] = function() {
+    return new App\Controllers\AnalyzeController();
+};
+$container['SaveController'] = function() {
+    return new App\Controllers\SaveController();
+};
+

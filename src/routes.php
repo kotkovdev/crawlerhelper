@@ -18,3 +18,4 @@ use Slim\Http\Response;
 });*/
 
 $app->get('/', App\Controllers\AnalyzeController::class);
+$app->get('/save', App\Controllers\SaveController::class);
