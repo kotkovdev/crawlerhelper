@@ -6,9 +6,14 @@ use Slim\Http\Response;
 /*
  * GET
  */
-$app->get('/', App\Controllers\AnalyzeController::class);
-$app->get('/save', App\Controllers\SaveController::class);
+
+$app->any('/', App\Controllers\AnalyzeController::class);
+$app->get('/download', App\Controllers\SaveController::class);
+$app->get('/login', \App\Controllers\UserController::class);
+$app->get('/forgot', '\App\Controllers\UserController:forgot');
 /*
  * POST
  */
-$app->get('/processor', App\Controllers\ProcessorController::class);
+$app->post('/process', App\Controllers\ProcessController::class);
+$app->post('/login', '\App\Controllers\UserController:login');
+$app->post('/save', 'App\Controllers\AnalyzeController:save');

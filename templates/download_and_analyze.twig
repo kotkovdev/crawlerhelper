@@ -8,33 +8,33 @@
                     <h3 class="text-center title-2">Download and analyze web page</h3>
                 </div>
                 <hr>
-                <form action="" method="post" novalidate="novalidate">
+                <form action="" method="post" id="crawler_form">
                     <div class="form-group">
-                        <label for="sites">Site(s):</label>
-                        <textarea name="sites" id="sites" cols="80" rows="10" class="form-control"></textarea>
+                        <label for="urls">Site(s):</label>
+                        <textarea name="urls" id="urls" cols="80" rows="10" class="form-control">{{ settings.urls }}</textarea>
                     </div>
                     <label for="">Download or analyze:</label>
                     <div class="form-group">
-                        <label for="function0"><input type="radio" name="function" value="0" id="function0"> download means save html and associated files</label>
+                        <label for="function0"><input type="radio" name="function" value="download" id="function0" {% if settings.function  == 'download' %} checked {% endif %}> Download resources</label>
                     </div>
                     <div class="form-group">
-                        <label for="function1"><input type="radio" name="function" value="1" id="function1"> download means save html and associated files</label>
+                        <label for="function1"><input type="radio" name="function" value="list" id="function1" {% if settings.function  == 'list' %} checked {% endif %}> List resources</label>
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-                        <label class="form-check-label" for="exampleCheck1">Ignore robots.txt</label>
+                        <input type="checkbox" class="form-check-input" id="ignore_robots_txt" name="ignore_robots_txt" {% if settings.ignore_robots_txt  == 'on' %} checked {% endif %}>
+                        <label class="form-check-label" for="ignore_robots_txt">Ignore robots.txt</label>
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-                        <label class="form-check-label" for="exampleCheck1">span-hosts</label>
+                        <input type="checkbox" class="form-check-input" id="span_hosts" name="span_hosts" {% if settings.span_hosts  == 'on' %} checked {% endif %}>
+                        <label class="form-check-label" for="span_hosts">span-hosts</label>
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-                        <label class="form-check-label" for="exampleCheck1">convert-links</label>
+                        <input type="checkbox" class="form-check-input" id="convert_links" name="convert_links" {% if settings.convert_links  == 'on' %} checked {% endif %}>
+                        <label class="form-check-label" for="convert_links">convert-links</label>
                     </div>
                     <div class="form-group float-right">
-                        <button class="btn btn-link">Save changes</button>
-                        <button class="btn btn-primary">Processing</button>
+                        <button class="btn btn-link save">Save changes</button>
+                        <button class="btn btn-primary processing">Processing</button>
                     </div>
                 </form>
             </div>

@@ -103,6 +103,8 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
+                    <div class="alert alert-success" id="success_alert" style="display:none" role="alert"></div>
+                    <div class="alert alert-danger" id="error_alert" style="display:none" role="alert"></div>
                     <div class="row">
                         {{block('body')}}
                     </div>
@@ -138,7 +140,7 @@
 
 <!-- Main JS-->
 <script src="js/main.js"></script>
-
+<script src="js/crawler.js"></script>
 </body>
 
 </html>

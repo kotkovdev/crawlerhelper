@@ -48,13 +48,21 @@ $container['db'] = function ($container) {
 };
 
 $container[App\Controllers\AnalyzeController::class] = function ($c) {
-    $table = $c->get('db')->table('analyze');
+    $table = $c->get('db')->table('settings');
     return new App\Controllers\AnalyzeController($table);
 };
 
-/*$container['AnalyzeController'] = function() {
-    return new App\Controllers\AnalyzeController();
-};*/
+$container[App\Controllers\UserController::class] = function ($c) {
+    $table = $c->get('db')->table('users');
+    return new App\Controllers\UserController($table);
+};
+
+$container[App\Controllers\ProcessController::class] = function($c) {
+    $jobs = $c->get('db')->table('jobs');
+    $instances = $c->get('db')->table('instances');
+    return new App\Controllers\ProcessController($jobs, $instances);
+};
+
 $container['SaveController'] = function() {
     return new App\Controllers\SaveController();
 };

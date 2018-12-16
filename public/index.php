@@ -9,6 +9,8 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
+define('PUBLIC_DIR', __DIR__);
+
 require __DIR__ . '/../vendor/autoload.php';
 
 session_start();

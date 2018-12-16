@@ -5,3 +5,4 @@
 .DS_Store
 /cache/
 /src/database.php
+/public/upload
