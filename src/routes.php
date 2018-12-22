@@ -9,6 +9,7 @@ use Slim\Http\Response;
 
 $app->any('/', App\Controllers\AnalyzeController::class);
 $app->get('/download', App\Controllers\SaveController::class);
+$app->get('/jobs', App\Controllers\JobsController::class);
 $app->get('/login', \App\Controllers\UserController::class);
 $app->get('/forgot', '\App\Controllers\UserController:forgot');
 /*

@@ -5,8 +5,12 @@ $(function(){
             url: '/process',
             data: data,
             type: 'post',
+            beforeSend: function() {
+                $('#processing_modal .modal-body').empty().append(preloader());
+                $('#processing_modal').modal('show');
+            },
             success: function() {
-
+                $('#processing_modal').modal('hide');
             }
         });
         return false;
@@ -28,6 +32,13 @@ $(function(){
         return false;
     });
 });
+
+function preloader() {
+    var img = new Image();
+    img.src = '/images/preloader.gif';
+    img.classList.add('preloader');
+    return img;
+}
 
 function serializeFormAsJSON(form) {
     var data = $(form).serializeArray();

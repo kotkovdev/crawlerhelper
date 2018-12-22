@@ -52,10 +52,11 @@ class WGET {
     public function process($settings = array())
     {
         $this->parseConfig();
+        $output = [];
         foreach ($this->urls as $url) {
-            $this->execute($url);
+            $output[] = $this->execute($url);
         }
-
+        return $output;
     }
 
     private function parseUrl($url)
@@ -87,7 +88,8 @@ class WGET {
         /**
          * Generate path, make dir and add params
          */
-        $downloadPath = $this->path . time() . '_' . $url;
+        $instanceName = time() . '_' . $url;
+        $downloadPath = $this->path . $instanceName;
         $command .= ' -P ' . $downloadPath;
         /**
          * Set ignoring robots.txt
@@ -109,12 +111,14 @@ class WGET {
         }
 
         $this->command = $command;
+        return $instanceName;
     }
 
     private function execute($url) {
         $url = $this->parseUrl($url);
-        $this->buildCommand($url);
+        $instanceName = $this->buildCommand($url);
         $output = array();
         exec($this->command, $output, $status);
+        return ['instance' => $instanceName, 'output' => $output, 'status' => $status, 'url' => $url];
     }
 }

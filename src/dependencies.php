@@ -63,6 +63,11 @@ $container[App\Controllers\ProcessController::class] = function($c) {
     return new App\Controllers\ProcessController($jobs, $instances);
 };
 
+$container[App\Controllers\JobsController::class] = function($c) {
+    $jobs = $c->get('db')->table('jobs');
+    return new App\Controllers\JobsController($jobs);
+};
+
 $container['SaveController'] = function() {
     return new App\Controllers\SaveController();
 };

@@ -1,0 +1,51 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <div class="table-responsive table-responsive-data2">
+        <table class="table table-data2">
+            <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>URL</th>
+                <th>Job type</th>
+                <th>Settings</th>
+                <th>Status</th>
+                <th>Files</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for job in jobs %}
+                <tr class="tr-shadow">
+                    <td>{{ job.created_at }}</td>
+                    <td>
+                        {{ job.url }}
+                    </td>
+                    <td>
+                        {% if (job.type == 1) %}
+                            Download and analyze webpage
+                        {% endif %}
+                    </td>
+                    <td>
+                        Coming
+                    </td>
+                    <td>
+                        {{ job.status }}
+                    </td>
+                    <td>
+                        <div class="table-data-feature">
+                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                <i class="zmdi zmdi-delete"></i>
+                            </button>
+                            <button onclick="javascript:window.open('/public/upload/instances/')" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
+                                <i class="zmdi zmdi-mail-send"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="spacer"></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
