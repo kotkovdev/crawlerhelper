@@ -8,10 +8,11 @@
                     <h3 class="text-center title-2">Download and save entire save</h3>
                 </div>
                 <hr>
-                <form action="" method="post" novalidate="novalidate">
+                <form action="" method="post" novalidate="novalidate" id="crawler_form">
+                    <input type="hidden" name="type" value="2">
                     <div class="form-group">
                         <label for="sites">Site(s):</label>
-                        <textarea name="sites" id="sites" cols="80" rows="10" class="form-control"></textarea>
+                        <textarea name="urls" id="sites" cols="80" rows="10" class="form-control">{{ settings.urls }}</textarea>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -19,21 +20,21 @@
                             <input type="number" name="depth" id="depth" value="10" class="form-control">
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-                            <label class="form-check-label" for="exampleCheck1">Ignore robots.txt</label>
+                            <input type="checkbox" class="form-check-input" id="ignore_robots_txt" name="ignore_robots_txt" {% if settings.ignore_robots_txt  == 'on' %} checked {% endif %}>
+                            <label class="form-check-label" for="ignore_robots_txt">Ignore robots.txt</label>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-                            <label class="form-check-label" for="exampleCheck1">span-hosts</label>
+                            <input type="checkbox" class="form-check-input" id="span_hosts" name="span_hosts" {% if settings.span_hosts  == 'on' %} checked {% endif %}>
+                            <label class="form-check-label" for="span_hosts">span-hosts</label>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-                            <label class="form-check-label" for="exampleCheck1">convert-links</label>
+                            <input type="checkbox" class="form-check-input" id="convert_links" name="convert_links" {% if settings.convert_links  == 'on' %} checked {% endif %}>
+                            <label class="form-check-label" for="convert_links">convert-links</label>
                         </div>
                     </div>
                     <div class="form-group float-right">
-                        <button class="btn btn-link">Save changes</button>
-                        <button class="btn btn-primary">Processing</button>
+                        <button class="btn btn-link save">Save changes</button>
+                        <button class="btn btn-primary processing" data-toggle="modal" data-target="#processing_modal">Processing</button>
                     </div>
                 </form>
             </div>

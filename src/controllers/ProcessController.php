@@ -3,7 +3,8 @@ namespace App\Controllers;
 
 use Illuminate\Database\Query\Builder;
 use App\Classes\WGET as WGET;
-use App\Models\Jobs as Jobs;
+use App\Models\Queue as Queue;
+use App\Models\Instance as Instance;
 
 class ProcessController
 {
@@ -16,24 +17,56 @@ class ProcessController
         $this->instances = $instances;
     }
 
+    /**
+     * Explode urls and add jobs to queue
+     *
+     * @param $req
+     * @param $res
+     */
     public function __invoke($req, $res)
     {
         $data = $req->getBody()->getContents();
-        $settings = json_decode($data);
-        $wget = new WGET($settings);
-        $wget->setPath(PUBLIC_DIR . '/upload/instances/');
-        $outputs = $wget->process();
-        foreach ($outputs as $output) {
-            $job = new Jobs;
-            $job->url = $output['url'];
-            $job->type = 1;
-            $job->settings = $data;
-            $job->status = $output['status'];
-            $job->save();
+        $settings = json_decode($data, true);
+        $settings['urls'] = trim($settings['urls'], " \t\n\r");
+        $urls = explode(PHP_EOL, $settings['urls']);
+        $type = $settings['type'];
+        unset($settings['type']);
+        unset($settings['urls']);
+        foreach ($urls as $url) {
+            $url = trim($url, " \t\n\r");
+            $queue = new Queue;
+            $queue->url = $url;
+            $queue->type = (int)$type;
+            $queue->settings = $data;
+            $queue->status = 1;
+            $queue->save();
         }
     }
 
-    public function setSettings($settings) {
-
+    public function process($limit = 0) {
+        Queue::chunk(10, function($jobs) {
+            foreach ($jobs as $job) {
+                $instncesPath = PUBLIC_DIR . '/upload/instances/';
+                if ($job->status !== 3) {
+                    $job->status = 2;
+                    $job->save();
+                    $settings = json_decode($job->settings, true);
+                    $settings['urls'] = $job->url;
+                    $wget = new WGET($settings);
+                    $wget->setPath($instncesPath);
+                    if ($job->type == 2) {
+                        $wget->setRecursive(true);
+                    }
+                    $result = $wget->process();
+                    $instance = new Instance;
+                    $instance->url = $job->url;
+                    $instance->is_exists = 1;
+                    $instance->path = $instncesPath . $result[0]['instance'];
+                    $instance->save();
+                    $job->status = 3;
+                    $job->save();
+                }
+            }
+        });
     }
 }

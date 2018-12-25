@@ -31,20 +31,55 @@ $(function(){
         });
         return false;
     });
+
+    $('.job-remove').click(() => {
+        $.post({
+            type: 'post',
+            url : '/jobs/remove',
+            data: JSON.stringify({id: $(event.target).data('id')}),
+            success: function() {
+                $(event.target).closest('tr').remove();
+            },
+            error: function() {
+                alert('Can not remove this job. Try later');
+            }
+
+        });
+    });
 });
 
-function preloader() {
+
+
+function preloader()
+{
     var img = new Image();
     img.src = '/images/preloader.gif';
     img.classList.add('preloader');
     return img;
 }
 
-function serializeFormAsJSON(form) {
+function serializeFormAsJSON(form)
+{
     var data = $(form).serializeArray();
     var outData = {};
     $.each(data, (key, item) => {
         outData[item.name] = item.value;
     });
     return JSON.stringify(outData);
+}
+
+function removeJob(id)
+{
+    $.post({
+        type: 'post',
+        url : '/jobs/remove',
+        data: JSON.stringify({id: id}),
+        success: function() {
+            $('#job-' + id).remove();
+        },
+        error: function() {
+            alert('Can not remove this job. Try later');
+        }
+
+    });
 }

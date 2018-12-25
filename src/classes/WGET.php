@@ -10,6 +10,7 @@ class WGET {
     private $spanHosts = false;
     private $convertLinks = false;
     private $function;
+    private $recursive = false;
 
     public function __construct($settings = array())
     {
@@ -49,7 +50,11 @@ class WGET {
         $this->path = $path;
     }
 
-    public function process($settings = array())
+    public function setRecursive($recursive) {
+        $this->recursive = $recursive;
+    }
+
+    public function process()
     {
         $this->parseConfig();
         $output = [];
@@ -63,7 +68,12 @@ class WGET {
     {
         $url = trim($url, " \t\n\r");
         $url = parse_url($url);
-        return $url['host'] . $url['path'];
+        if (isset($url['path'])) {
+            return $url['host'] . $url['path'];
+        } else {
+            return $url['host'];
+        }
+
     }
 
     private function parseConfig()
@@ -75,6 +85,7 @@ class WGET {
                 case 'span_hosts': if ($item == 'on') { $this->setSpanHosts(true); } break;
                 case 'convert_links': if ($item == 'on') { $this->setConvertLinks(true); } break;
                 case 'function' : $this->setFunction($item); break;
+                default: break;
             }
         }
     }
@@ -84,7 +95,7 @@ class WGET {
         /**
          * Set url
          */
-        $command = 'wget ' . $url . ' -E - np --default-page=index.php';
+        $command = 'wget ' . $url . ' -E -np --default-page=index.php';
         /**
          * Generate path, make dir and add params
          */
@@ -98,7 +109,7 @@ class WGET {
             $command .= ' -e robots=off';
         }
 
-        if ($this->spanHost) {
+        if ($this->spanHosts) {
             $command .= ' --span-hosts';
         }
 
@@ -108,6 +119,10 @@ class WGET {
 
         if ($this->function == 'download') {
             $command .= ' -p -k';
+        }
+
+        if ($this->recursive) {
+            $command .= ' -r';
         }
 
         $this->command = $command;

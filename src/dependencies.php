@@ -58,14 +58,19 @@ $container[App\Controllers\UserController::class] = function ($c) {
 };
 
 $container[App\Controllers\ProcessController::class] = function($c) {
-    $jobs = $c->get('db')->table('jobs');
+    $jobs = $c->get('db')->table('queue');
     $instances = $c->get('db')->table('instances');
     return new App\Controllers\ProcessController($jobs, $instances);
 };
 
 $container[App\Controllers\JobsController::class] = function($c) {
-    $jobs = $c->get('db')->table('jobs');
+    $jobs = $c->get('db')->table('queue');
     return new App\Controllers\JobsController($jobs);
+};
+
+$container[App\Controllers\InstanceController::class] = function($c) {
+    $instances = $c->get('db')->table('instances');
+    return new App\Controllers\InstancesController($instances);
 };
 
 $container['SaveController'] = function() {
