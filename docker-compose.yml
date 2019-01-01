@@ -6,6 +6,7 @@ services:
     environment:
       - APACHE_RUN_USER=www-data
     volumes:
+      - ./:/var/www/
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
     ports:
       - 8080:80
