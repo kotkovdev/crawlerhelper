@@ -43,8 +43,14 @@ class ProcessController
         }
     }
 
-    public function process($limit = 0) {
-        Queue::chunk(10, function($jobs) {
+    /**
+     *
+     * Crawler worker
+     *
+     * @param int $limit
+     */
+    public function process($limit = 10) {
+        Queue::chunk($limit, function($jobs) {
             foreach ($jobs as $job) {
                 $instncesPath = PUBLIC_DIR . '/upload/instances/';
                 if ($job->status !== 3) {
@@ -61,9 +67,12 @@ class ProcessController
                     $instance = new Instance;
                     $instance->url = $job->url;
                     $instance->is_exists = 1;
-                    $instance->path = $instncesPath . $result[0]['instance'];
+                    $instance->path = $instncesPath . $result[0]['path'];
+                    $instance->name = $result[0]['name'];
                     $instance->save();
+                    $job->instance_id = $instance->id;
                     $job->status = 3;
+                    $job->command = $result[0]['command'];
                     $job->save();
                 }
             }

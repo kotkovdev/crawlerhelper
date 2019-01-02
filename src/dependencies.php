@@ -52,6 +52,11 @@ $container[App\Controllers\AnalyzeController::class] = function ($c) {
     return new App\Controllers\AnalyzeController($table);
 };
 
+$container[App\Controllers\SaveController::class] = function ($c) {
+    $table = $c->get('db')->table('settings');
+    return new App\Controllers\SaveController($table);
+};
+
 $container[App\Controllers\UserController::class] = function ($c) {
     $table = $c->get('db')->table('users');
     return new App\Controllers\UserController($table);
@@ -71,9 +76,5 @@ $container[App\Controllers\JobsController::class] = function($c) {
 $container[App\Controllers\InstanceController::class] = function($c) {
     $instances = $c->get('db')->table('instances');
     return new App\Controllers\InstancesController($instances);
-};
-
-$container['SaveController'] = function() {
-    return new App\Controllers\SaveController();
 };
 

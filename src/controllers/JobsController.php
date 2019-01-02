@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\Queue as Queue;
+use App\Models\Instance as Instance;
 
 class JobsController extends Controller
 {
@@ -10,7 +11,14 @@ class JobsController extends Controller
         global $container;
         $data = [];
         $jobs = new Queue;
-        $data['jobs'] = $jobs::orderBy('id', 'DESC')->get()->toArray();
+        $jobs = $jobs::orderBy('id', 'DESC')->get()->toArray();
+        foreach ($jobs as &$job) {
+            if ($job['instance_id'] > 0) {
+                $job['instance'] = Instance::find($job['instance_id'])->toArray();
+                $job['settings'] = json_decode($job['settings'], true);
+            }
+        }
+        $data['jobs'] = $jobs;
         $container->view->render($res, 'jobs.twig', $data);
     }
 

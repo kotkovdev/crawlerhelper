@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use App\Controllers\Controller;
+use App\Models\Settings as Settings;
 
 class AnalyzeController extends Controller
 {
@@ -16,11 +16,13 @@ class AnalyzeController extends Controller
     public function save($req, $res)
     {
         $requestContent = $req->getBody()->getContents();
-        if (json_decode($requestContent)) {
-            $this->table->where(['id' => 1])->update(['settings' => $requestContent]);
-            echo json_encode(['result' => 'true']);
-        } else {
-            echo json_encode(['result' => 'false']);
+        $settings = Settings::find(1);
+        if (is_null($settings)) {
+            $settings = new Settings;
         }
+        $settings->id = 1;
+        $settings->settings = $requestContent;
+        $settings->save();
+        echo json_encode(['result' => true]);
     }
 }

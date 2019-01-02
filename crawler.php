@@ -8,6 +8,7 @@ if (PHP_SAPI == 'cli-server') {
 }
 
 define('PUBLIC_DIR', __DIR__ . '/public');
+define('LOG_PATH', __DIR__ . '/logs');
 
 require __DIR__ . '/vendor/autoload.php';
 

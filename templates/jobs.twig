@@ -10,6 +10,7 @@
                     <th>URL</th>
                     <th>Job type</th>
                     <th>Settings</th>
+                    <th>Executed command</th>
                     <th>Status</th>
                     <th>Files</th>
                     <th></th>
@@ -25,10 +26,29 @@
                         <td>
                             {% if (job.type == 1) %}
                                 Download and analyze webpage
+                            {% elseif job.type == 2 %}
+                                Download website
                             {% endif %}
                         </td>
                         <td>
-                            Coming
+                            {% if job.settings.ignore_robots_txt %}
+                                <p>Ignore robots.txt: on</p>
+                            {% endif %}
+
+                            {% if job.settings.span_hosts %}
+                                <p>Span hosts: on</p>
+                            {% endif %}
+
+                            {% if job.settings.convert_links %}
+                                <p>Convert links: on</p>
+                            {% endif %}
+
+                            {% if job.settings.depth %}
+                                <p>Depth: {{ job.settings.depth }}</p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <textarea name="" id="" cols="20" rows="5">{{ job.command }}</textarea>
                         </td>
                         <td>
                             {% if (job.status == 1) %}
@@ -43,10 +63,11 @@
                         </td>
                         <td>
                             <div class="table-data-feature">
+                                <button class="btn btn-link">Show log</button>
                                 <button class="item remove-job" onclick="removeJob({{ job.id }});" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
-                                <button onclick="javascript:window.open('/public/upload/instances/')" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open instance">
+                                <button onclick="javascript:window.open('/upload/instances/{{ job.instance.name }}')" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open instance">
                                     <i class="zmdi zmdi-mail-send"></i>
                                 </button>
                             </div>

@@ -1,3 +1,5 @@
+Options +Indexes
+IndexOptions FancyIndexing FoldersFirst NameWidth=* DescriptionWidth=*
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
@@ -10,6 +12,7 @@
   # fits all solution. But as you do not need it in this case, you can comment
   # the following 2 lines to eliminate the overhead.
   RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
+  RewriteCond %{REQUEST_URI} !/upload/(.*)$
   RewriteRule ^(.*) - [E=BASE:%1]
   
   # If the above doesn't work you might need to set the `RewriteBase` directive manually, it should be the
@@ -17,5 +20,6 @@
   # RewriteBase /
 
   RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !/upload/(.*)$
   RewriteRule ^ index.php [QSA,L]
 </IfModule>

@@ -7,12 +7,14 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP TABLE IF EXISTS `crw_instances`;
 CREATE TABLE `crw_instances` (
-  `id` int(6) DEFAULT NULL,
+  `id` int(6) DEFAULT NULL AUTO_INCREMENT,
   `url` varchar(255) NOT NULL,
   `path` text NOT NULL,
+  `name` varchar(255) NOT NULL,
   `is_exists` int(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -22,6 +24,8 @@ CREATE TABLE `crw_queue` (
   `url` longtext,
   `type` int(1) DEFAULT NULL,
   `settings` text,
+  `command` varchar(255),
+  `instance_id` int(6) DEFAULT NULL,
   `status` int(3) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -33,6 +37,8 @@ DROP TABLE IF EXISTS `crw_settings`;
 CREATE TABLE `crw_settings` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `settings` text NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
