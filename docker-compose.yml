@@ -5,10 +5,16 @@ services:
     build: ./Docker/web
     environment:
       - APACHE_RUN_USER=www-data
+    environment:
+          PHP_XDEBUG_ENABLED: 1
+          PHP_XDEBUG: idekey = PHPSTORM
+          XDEBUG_CONFIG: remote_host = 192.168.1.102
+          XDEBUG_CONFIG: idekey = PHPSTORM
     volumes:
       - ./:/var/www/
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
     ports:
+      - 9000
       - 8080:80
     working_dir: ${APP_PATH_CONTAINER}
   db:
