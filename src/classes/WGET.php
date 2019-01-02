@@ -251,7 +251,7 @@ class WGET {
         $downloadPath = $this->path . $instanceName;
         $command .= ' -P ' . $downloadPath;
 
-        $command .= ' -o ' . LOG_PATH . '/' . $this->timestamp . '.log';
+        $command .= ' -o ' . LOG_PATH . '/' . $instanceName . '.log';
 
         if ($this->function == 'download') {
             $command .= ' -p -k';

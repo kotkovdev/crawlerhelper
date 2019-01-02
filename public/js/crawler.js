@@ -46,6 +46,18 @@ $(function(){
 
         });
     });
+
+    $('.show-log').click((event) => {
+        $.ajax({
+            url: '/jobs/log',
+            type: 'get',
+            data: {name: $(event.target).data('name')},
+            success: function(response) {
+                $('#log_modal textarea').text(response);
+                $('#log_modal').modal('show');
+            }
+        });
+    });
 });
 
 
