@@ -1,7 +1,7 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <div class="table-responsive table-responsive-data2">
+    <div class="table-responsive table-responsive-data2" id="instances">
         <table class="table table-data2">
             <thead>
             <tr>
@@ -17,13 +17,13 @@
                         <td><p>{{ instance.created_at }}</p></td>
                         <td><p>{{ instance.url }}</p></td>
                         {% if instance.is_exists == 1 %}
-                            <td>Saved</td>
+                            <td class="status">Saved</td>
                         {% else %}
                             <td>Deleted</td>
                         {% endif %}
                         <td>
-                            <button class="btn btn-link delete">Delete</button>
-                            <button class="btn btn-link delete">Show</button>
+                            <button class="btn btn-link delete {% if instance.is_exists == 0 %}disabled{% endif %}" data-id="{{ instance.id }}">Delete</button>
+                            <button class="btn btn-link show {% if instance.is_exists == 0 %}disabled{% endif %}" onclick="javascript:window.open('/upload/instances/{{ instance.name }}')">Show</button>
                         </td>
                     </tr>
                 {% endfor %}

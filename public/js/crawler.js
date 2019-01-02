@@ -58,6 +58,17 @@ $(function(){
             }
         });
     });
+
+    $('#instances .delete').click(function(event){
+        $.ajax({
+            url: '/instlist/remove',
+            type: 'post',
+            data: {id: $(event.target).data('id')},
+            success: function() {
+                $(event.target).closest('tr').find('.status').text('Deleted');
+            }
+        });
+    });
 });
 
 

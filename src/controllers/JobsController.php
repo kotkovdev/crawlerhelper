@@ -34,7 +34,7 @@ class JobsController extends Controller
     public function log($req, $res)
     {
         $name = $_GET['name'];
-        $filepath = LOG_DIR . DIRECTORY_SEPARATOR . $name . '.log';
+        $filepath = LOG_PATG . DIRECTORY_SEPARATOR . $name . '.log';
         $content = file_get_contents($filepath);
         echo $content;
     }

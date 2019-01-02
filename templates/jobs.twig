@@ -63,13 +63,15 @@
                         </td>
                         <td>
                             <div class="table-data-feature">
-                                <button class="btn btn-link show-log" data-name="{{ job.instance.name }}">Show log</button>
+                                <button class="btn btn-link show-log {% if job.instance.is_exists == 0 %}disabled{% endif %}" data-name="{{ job.instance.name }}">Show log</button>
                                 <button class="item remove-job" onclick="removeJob({{ job.id }});" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
-                                <button onclick="javascript:window.open('/upload/instances/{{ job.instance.name }}')" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open instance">
-                                    <i class="zmdi zmdi-mail-send"></i>
-                                </button>
+                                {% if job.instance.is_exists != 0 %}
+                                    <button onclick="javascript:window.open('/upload/instances/{{ job.instance.name }}')" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open instance">
+                                        <i class="zmdi zmdi-mail-send"></i>
+                                    </button>
+                                {% endif %}
                             </div>
                         </td>
                     </tr>

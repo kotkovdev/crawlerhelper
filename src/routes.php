@@ -31,3 +31,8 @@ $app->post('/login', '\App\Controllers\UserController:login');
 $app->post('/save', 'App\Controllers\AnalyzeController:save');
 $app->post('/download/save', 'App\Controllers\SaveController:save');
 $app->post('/jobs/remove', 'App\Controllers\JobsController:remove');
+$app->post('/instlist/remove', function ($req, $res, $args){
+    global $container;
+    $instances = new \App\Controllers\InstancesController($container->get('db')->table('instances'));
+    return $instances->remove($req, $res);
+});
