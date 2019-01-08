@@ -69,6 +69,25 @@ $(function(){
             }
         });
     });
+
+    $('#run-crawler').click((event) => {
+        $('#processing_modal .modal-body').html(preloader());
+        $('#processing_modal').modal('show');
+        $.ajax({
+            type: 'get',
+            url: '/process',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status == 'done') {
+                    $('#processing_modal').modal('hide');
+                }
+            },
+            error: function (response) {
+                alert('Crawler error. See log for get more info.');
+            }
+        });
+        return false;
+    });
 });
 
 

@@ -77,5 +77,6 @@ class ProcessController
                 }
             }
         });
+        echo json_encode(['status' => 'done']);
     }
 }

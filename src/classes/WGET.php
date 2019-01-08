@@ -240,30 +240,32 @@ class WGET {
      */
     private function buildCommand($url)
     {
+        $instanceName = $this->timestamp . '_' . $url;
+        $downloadPath = $this->path . $instanceName;
+
+        switch ($this->type) {
+            case 1:
+                switch ($this->function) {
+                    case 'download' : $command = 'wget ' . $url . ' -E -np -p'; break;
+                    case 'list' : $command = 'wget --spider ' . $url . ' -r -nd -nv'; break;
+                    default: throw new Exception('Crawler initializing error'); break;
+                }
+                break;
+            case 2:
+                $command = 'wget ' . $url . ' -E -p';
+                break;
+
+            default: throw new Exception('Crawler initializing error'); break;
+        }
+
         /**
          * Set url
          */
-        $command = 'wget ' . $url . ' -E -np --default-page=index.php';
+        //$command = 'wget ' . $url . ' -E -np --default-page=index.php';
         /**
          * Generate path, make dir and add params
          */
-        $instanceName = $this->timestamp . '_' . $url;
-        $downloadPath = $this->path . $instanceName;
-        $command .= ' -P ' . $downloadPath;
 
-        $command .= ' -o ' . LOG_PATH . '/' . $instanceName . '.log';
-
-        if ($this->function == 'download') {
-            $command .= ' -p -k';
-        }
-
-        if ($this->function == 'list') {
-            $command .= ' --spider';
-        }
-
-        /**
-         * Set ignoring robots.txt
-         */
         if ($this->ignoreRobotsTxt) {
             $command .= ' -e robots=off';
         }
@@ -276,6 +278,10 @@ class WGET {
             $command .= ' --convert-links';
         }
 
+        $command .= ' -P ' . $downloadPath;
+
+        $command .= ' -o ' . LOG_PATH . '/' . $instanceName . '.log';
+
         if ($this->recursive) {
             $command .= ' -r';
         }
@@ -283,6 +289,10 @@ class WGET {
         if ($this->depth) {
             $command .= ' -l ' . $this->depth;
         }
+
+        /**
+         * Set ignoring robots.txt
+         */
 
         $this->command = $command;
         return $instanceName;
