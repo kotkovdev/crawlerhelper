@@ -57,6 +57,11 @@ $container[App\Controllers\SaveController::class] = function ($c) {
     return new App\Controllers\SaveController($table);
 };
 
+$container[App\Controllers\ListController::class] = function ($c) {
+    $table = $c->get('db')->table('settings');
+    return new App\Controllers\ListController($table);
+};
+
 $container[App\Controllers\UserController::class] = function ($c) {
     $table = $c->get('db')->table('users');
     return new App\Controllers\UserController($table);

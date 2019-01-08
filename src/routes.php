@@ -16,6 +16,7 @@ if (!isset($_SESSION['id'])) {
      */
     $app->any('/', App\Controllers\AnalyzeController::class);
     $app->get('/download', App\Controllers\SaveController::class);
+    $app->get('/list', App\Controllers\ListController::class);
     $app->get('/jobs', App\Controllers\JobsController::class);
     $app->get('/jobs/log', 'App\Controllers\JobsController:log');
     $app->get('/login', \App\Controllers\UserController::class);
@@ -38,6 +39,7 @@ if (!isset($_SESSION['id'])) {
     $app->post('/forgot', '\App\Controllers\UserController:forgot');
     $app->post('/save', 'App\Controllers\AnalyzeController:save');
     $app->post('/download/save', 'App\Controllers\SaveController:save');
+    $app->post('/list/save', 'App\Controllers\ListController:save');
     $app->post('/jobs/remove', 'App\Controllers\JobsController:remove');
     $app->post('/instlist/remove', function ($req, $res, $args){
         global $container;

@@ -254,7 +254,9 @@ class WGET {
             case 2:
                 $command = 'wget ' . $url . ' -E -p';
                 break;
-
+            case 3:
+                $command = 'wget ' . $url . ' --spider -r -nd -nv';
+                break;
             default: throw new Exception('Crawler initializing error'); break;
         }
 
@@ -278,7 +280,9 @@ class WGET {
             $command .= ' --convert-links';
         }
 
-        $command .= ' -P ' . $downloadPath;
+        if ($this->type == 1 || $this->type == 2) {
+            $command .= ' -P ' . $downloadPath;
+        }
 
         $command .= ' -o ' . LOG_PATH . '/' . $instanceName . '.log';
 

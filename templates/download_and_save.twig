@@ -17,7 +17,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="depth">Max Depth</label>
-                            <input type="number" name="depth" id="depth" value="{% if 11 > settings.depth > 0 %}{{ settings.depth }}{% else %}10{% endif %}" class="form-control">
+                            <input type="number" name="depth" id="depth" value="{% if settings.depth and 11 > settings.depth > 0 %}{{ settings.depth }}{% else %}10{% endif %}" class="form-control">
                         </div>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="ignore_robots_txt" name="ignore_robots_txt" {% if settings.ignore_robots_txt  == 'on' %} checked {% endif %}>

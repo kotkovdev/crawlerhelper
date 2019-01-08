@@ -79,7 +79,7 @@ class UserController
         $link = $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . '/forgot?hash=' . $hash;
         $template = '
             <h3>Restore password</h3>
-            <p>For restore password you must go to <a href="' . $link . '" target="_blank">' . $link . '</a></p>
+            <p>For restore password you must go to <a href="//' . $link . '" target="_blank">' . $link . '</a></p>
         ';
         mail($email, 'Restoring password for CrawlerHelper', $template);
     }

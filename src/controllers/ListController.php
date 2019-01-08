@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\Settings as Settings;
+use Illuminate\Database\Query\Builder;
 
 class ListController extends Controller
 {
@@ -10,7 +11,7 @@ class ListController extends Controller
         global $container;
         $data = (array)$this->table->find(3);
         $data['settings'] = json_decode($data['settings']);
-        $container->view->render($res, 'download_and_analyze.twig', $data);
+        $container->view->render($res, 'list_resources.twig', $data);
     }
 
     public function save($req, $res)
