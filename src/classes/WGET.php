@@ -25,7 +25,7 @@ class WGET {
     /**
      * @var int Depth
      */
-    private $depth = 10;
+    private $depth;
 
     /**
      * @var Function type
