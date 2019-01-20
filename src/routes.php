@@ -26,6 +26,11 @@ if (!isset($_SESSION['id'])) {
         $instances = new \App\Controllers\InstancesController($container->get('db')->table('instances'));
         return $instances->__invoke($req, $res);
     });
+    $app->get('/instlist/{id}', function($req, $res, $args) {
+        global $container;
+        $instances = new \App\Controllers\InstancesController($container->get('db')->table('instances'));
+        return $instances->list($req, $res, $args);
+    });
     $app->get('/process', function($req, $res, $args){
         global $container;
         $processController = new App\Controllers\ProcessController($container->get('db')->table('queue'), $container->get('db')->table('instances'));

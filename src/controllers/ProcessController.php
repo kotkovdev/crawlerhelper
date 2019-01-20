@@ -49,7 +49,8 @@ class ProcessController
      *
      * @param int $limit
      */
-    public function process($limit = 10) {
+    public function process($limit = 10)
+    {
         Queue::chunk($limit, function($jobs) {
             foreach ($jobs as $job) {
                 $instncesPath = PUBLIC_DIR . '/upload/instances/';
@@ -71,12 +72,38 @@ class ProcessController
                     $instance->name = $result[0]['name'];
                     $instance->save();
                     $job->instance_id = $instance->id;
-                    $job->status = 3;
+                    //$job->status = 3;
                     $job->command = $result[0]['command'];
+                    if ($job->type == 3) {
+                        //Parse resources statuses
+                        $this->analyzeResources($job, $instance);
+                    }
                     $job->save();
                 }
             }
         });
         echo json_encode(['status' => 'done']);
+    }
+
+    /**
+     * @param $job
+     * @param $instance
+     *
+     * Parse log when get list of urls
+     */
+    public function analyzeResources($job, $instance)
+    {
+        $logPath = LOG_PATH . '/' . $instance->name . '.log';
+        $log = file($logPath);
+        $out = [];
+        foreach ($log as $line) {
+            if (strlen($line) > 10) {
+                if (strpos($line, 'URL:') && !strpos($line, '->')) {
+                    $out[] = explode(' ', $line);
+                }
+            }
+        }
+        $instance->path = json_encode($out);
+        $instance->save();
     }
 }

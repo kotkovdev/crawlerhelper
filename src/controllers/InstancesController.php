@@ -9,8 +9,17 @@ class InstancesController extends Controller
     {
         global $container;
         $data = [];
-        $instances = new Instance;
-        $data['instances'] = $instances::orderBy('id', 'DESC')->get()->toArray();
+        $data['instances'] = [];
+        $instances = Instance::orderBy('id', 'DESC')->get()->toArray();
+        foreach ($instances as $instance) {
+            $job = \App\Models\Queue::where('instance_id', '=', $instance['id'])->first();
+            if ($job['type'] == 3) {
+                $instance['instance_url'] = '/instlist/'.$instance['id'];
+            } else {
+                $instance['instance_url'] = '/upload/instances/' . $instance['name'];
+            }
+            $data['instances'][] = $instance;
+        }
         $container->view->render($res, 'instances.twig', $data);
     }
 
@@ -44,5 +53,14 @@ class InstancesController extends Controller
         } elseif(is_file($target)) {
             unlink( $target );
         }
+    }
+
+    public function list($req, $res, $args)
+    {
+        global $container;
+        $instance = Instance::find($args['id'])->toArray();
+        $data['instance'] = $instance;
+        $data['resources'] = json_decode($instance['path']);
+        $container->view->render($res, 'instance.twig', $data);
     }
 }

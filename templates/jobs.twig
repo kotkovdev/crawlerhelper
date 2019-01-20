@@ -70,7 +70,7 @@
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
                                 {% if job.instance.is_exists != 0 %}
-                                    <button onclick="javascript:window.open('/upload/instances/{{ job.instance.name }}')" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open instance">
+                                    <button onclick="javascript:window.open('{{ job.instance_url }}')" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open instance">
                                         <i class="zmdi zmdi-mail-send"></i>
                                     </button>
                                 {% endif %}

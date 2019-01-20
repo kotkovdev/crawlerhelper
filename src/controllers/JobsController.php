@@ -16,6 +16,12 @@ class JobsController extends Controller
             if ($job['instance_id'] > 0) {
                 $job['instance'] = Instance::find($job['instance_id'])->toArray();
                 $job['settings'] = json_decode($job['settings'], true);
+                if ($job['type'] == 3) {
+                    $job['instance_url'] = '/instlist/' . $job['instance']['id'];
+                } else {
+                    $job['instance_url'] = '/upload/instances/' . $job['instance']['name'];
+                }
+
             }
         }
         $data['jobs'] = $jobs;
