@@ -72,7 +72,7 @@ class ProcessController
                     $instance->name = $result[0]['name'];
                     $instance->save();
                     $job->instance_id = $instance->id;
-                    //$job->status = 3;
+                    $job->status = 3;
                     $job->command = $result[0]['command'];
                     if ($job->type == 3) {
                         //Parse resources statuses
