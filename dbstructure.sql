@@ -24,7 +24,7 @@ CREATE TABLE `crw_queue` (
   `url` longtext,
   `type` int(1) DEFAULT NULL,
   `settings` text,
-  `command` varchar(255),
+  `command` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   `instance_id` int(6) DEFAULT NULL,
   `status` int(3) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,

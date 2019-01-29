@@ -240,7 +240,15 @@ class WGET {
      */
     private function buildCommand($url)
     {
-        $instanceName = $this->timestamp . '_' . $url;
+        /*
+         * Fixes for long URLs
+         */
+        $shortUrl = explode('/', $url);
+        if (is_array($shortUrl) && count($shortUrl)) {
+            $instanceName = $this->timestamp . '_' . $shortUrl[0];
+        } else {
+            $instanceName = $this->timestamp . '_' . $url;
+        }
         $downloadPath = $this->path . $instanceName;
 
         switch ($this->type) {
@@ -311,8 +319,8 @@ class WGET {
      */
     private function execute($url) {
         $url = $this->parseUrl($url);
-        $instancePath = $this->buildCommand($url);
-        $instanceName = $this->timestamp . '_' . $url;
+        $instancePath = $instanceName = $this->buildCommand($url);
+        //$instanceName = $this->timestamp . '_' . $url;
         $output = array();
         exec($this->command, $output, $status);
         return ['path' => $instancePath, 'name' => $instanceName, 'output' => $output, 'status' => $status, 'url' => $url, 'command' => $this->command];

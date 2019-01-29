@@ -59,7 +59,7 @@
                                 {% for resource in resources %}
                                     <tr>
                                         <td>{{ resource.0 }} {{ resource.1 }}</td>
-                                        <td>{{ resource.3 }}</td>
+                                        <td><a href="{{ resource.3 }}" target="_blank">{{ resource.3 }}</a></td>
                                         <td>{{ resource.4 }} {{ resource.5 }}</td>
                                     </tr>
                                 {% endfor %}
