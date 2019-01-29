@@ -14,7 +14,9 @@ define('LOG_PATH', __DIR__ . '/../logs');
 
 require __DIR__ . '/../vendor/autoload.php';
 
-session_start();
+session_start([
+    'read_and_close' => true,
+]);
 
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
