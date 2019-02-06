@@ -13,7 +13,8 @@ class InstancesController extends Controller
         $instances = Instance::orderBy('id', 'DESC')->get()->toArray();
         foreach ($instances as $instance) {
             $job = \App\Models\Queue::where('instance_id', '=', $instance['id'])->first();
-            if ($job['type'] == 3) {
+            $job['settings'] = json_decode($job['settings'], true);
+            if ($job['type'] == 3 || $job['settings']['function'] == 'list') {
                 $instance['instance_url'] = '/instlist/'.$instance['id'];
             } else {
                 $instance['instance_url'] = '/upload/instances/' . $instance['name'];

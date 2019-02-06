@@ -74,7 +74,7 @@ class ProcessController
                     $job->instance_id = $instance->id;
                     $job->status = 3;
                     $job->command = $result[0]['command'];
-                    if ($job->type == 3) {
+                    if ($job->type == 3 || $settings['function'] == 'list') {
                         //Parse resources statuses
                         $this->analyzeResources($job, $instance);
                     }

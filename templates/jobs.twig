@@ -65,7 +65,7 @@
                         </td>
                         <td>
                             <div class="table-data-feature">
-                                <button class="btn btn-link show-log {% if job.instance.is_exists == 0 %}disabled{% endif %}" data-name="{{ job.instance.name }}">Show log</button>
+                                <a class="btn btn-link show-log" data-name="{{ job.instance.name }}" href="/jobs/log?name={{ job.instance.name }}" target="_blank">Show log</a>
                                 <button class="item remove-job" onclick="removeJob({{ job.id }});" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>

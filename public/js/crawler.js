@@ -48,7 +48,7 @@ $(function(){
     });
 
     $('.show-log').click((event) => {
-        $.ajax({
+        /*$.ajax({
             url: '/jobs/log',
             type: 'get',
             data: {name: $(event.target).data('name')},
@@ -56,7 +56,7 @@ $(function(){
                 $('#log_modal textarea').text(response);
                 $('#log_modal').modal('show');
             }
-        });
+        });*/
     });
 
     $('#instances .delete').click(function(event){
