@@ -254,8 +254,8 @@ class WGET {
         switch ($this->type) {
             case 1:
                 switch ($this->function) {
-                    case 'download' : $command = 'wget ' . $url . ' -E -np -p'; break;
-                    case 'list' : $command = 'wget --spider ' . $url . ' -r -nd -nv'; break;
+                    case 'download' : $command = 'wget ' . $url . ' -E -np -p -l 1'; break;
+                    case 'list' : $command = 'wget --spider ' . $url . ' -r -nd -nv -l 1'; break;
                     default: throw new Exception('Crawler initializing error'); break;
                 }
                 break;
