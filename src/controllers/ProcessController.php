@@ -43,6 +43,12 @@ class ProcessController
         }
     }
 
+    public function run()
+    {
+        $result = shell_exec( '/usr/local/bin/php ' . $_SERVER['DOCUMENT_ROOT'] . '/../crawler.php  > /dev/null &');
+        echo json_encode(['status' => 'done', 'result' => $result]);
+    }
+
     /**
      *
      * Crawler worker
@@ -64,10 +70,24 @@ class ProcessController
                     if ($job->type == 2) {
                         $wget->setRecursive(true);
                     }
-                    $result = $wget->process();
+                    /**
+                     * Saving instance info for live log watching
+                     */
                     $instance = new Instance;
                     $instance->url = $job->url;
+                    $instance->name = $wget->getName($job->url);
                     $instance->is_exists = 1;
+                    $instance->path = " ";
+                    $instance->save();
+                    $job->instance_id = $instance->id;
+                    $job->save();
+                    /**
+                     * Run processing
+                     */
+                    $result = $wget->process();
+                    /**
+                     * Update information of instances
+                     */
                     $instance->path = $instncesPath . $result[0]['path'];
                     $instance->name = $result[0]['name'];
                     $instance->save();

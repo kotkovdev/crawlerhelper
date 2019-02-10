@@ -34,7 +34,7 @@ if (!isset($_SESSION['id'])) {
     $app->get('/process', function($req, $res, $args){
         global $container;
         $processController = new App\Controllers\ProcessController($container->get('db')->table('queue'), $container->get('db')->table('instances'));
-        return $processController->process();
+        return $processController->run();
     });
     /*
      * POST

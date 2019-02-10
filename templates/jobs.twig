@@ -10,9 +10,9 @@
                     <th>URL</th>
                     <th>Job type</th>
                     <th>Settings</th>
-                    <th>Executed command</th>
+                    <!--<th>Executed command</th>-->
                     <th>Status</th>
-                    <th>Files</th>
+                    <th></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -49,9 +49,9 @@
                                 <p>Depth: {{ job.settings.depth }}</p>
                             {% endif %}
                         </td>
-                        <td>
+                        <!--<td>
                             <textarea name="" id="" cols="20" rows="5">{{ job.command }}</textarea>
-                        </td>
+                        </td>-->
                         <td>
                             {% if (job.status == 1) %}
                                 <span class="status--process">Prepared</span>
@@ -65,7 +65,7 @@
                         </td>
                         <td>
                             <div class="table-data-feature">
-                                <a class="btn btn-link show-log" data-name="{{ job.instance.name }}" href="/jobs/log?name={{ job.instance.name }}" target="_blank">Show log</a>
+                                <a class="btn btn-link show-log {% if job.instance.name | length == 0 %} disabled {% endif %}" data-name="{{ job.instance.name }}" href="/jobs/log?name={{ job.instance.name }}" target="_blank">Show log</a>
                                 <button class="item remove-job" onclick="removeJob({{ job.id }});" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>

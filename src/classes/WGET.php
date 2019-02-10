@@ -63,6 +63,11 @@ class WGET {
     private $timestamp;
 
     /**
+     * @var Instance name;
+     */
+    private $instanceName;
+
+    /**
      *
      * Initialize WGET helper and set settings
      *
@@ -231,14 +236,7 @@ class WGET {
         }
     }
 
-    /**
-     *
-     * Build command for WGET
-     *
-     * @param $url
-     * @return string
-     */
-    private function buildCommand($url)
+    public function getName($url)
     {
         /*
          * Fixes for long URLs
@@ -249,6 +247,20 @@ class WGET {
         } else {
             $instanceName = $this->timestamp . '_' . $url;
         }
+
+        return $instanceName;
+    }
+
+    /**
+     *
+     * Build command for WGET
+     *
+     * @param $url
+     * @return string
+     */
+    private function buildCommand($url)
+    {
+        $instanceName = $this->getName($url);
         $downloadPath = $this->path . $instanceName;
 
         switch ($this->type) {
