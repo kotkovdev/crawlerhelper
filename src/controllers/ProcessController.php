@@ -130,7 +130,7 @@ class ProcessController
                         date('H:i:s', $timestamp),
                         'URL',
                         $log[$key - 1],
-                        404,
+                        '',
                         'broken link!!!'
                     ];
                 }
