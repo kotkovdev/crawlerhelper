@@ -21,6 +21,7 @@ class InstancesController extends Controller
             }
             $data['instances'][] = $instance;
         }
+        $data['lock'] = $this->checkLock();
         $container->view->render($res, 'instances.twig', $data);
     }
 

@@ -12,7 +12,7 @@ $(function(){
             success: function() {
                 setTimeout(function() {
                     $('#processing_modal').modal('hide');
-                }, 100);
+                }, 1000);
             }
         });
         return false;
@@ -83,7 +83,7 @@ $(function(){
                 if (response.status == 'done') {
                     setTimeout(function() {
                         $('#processing_modal').modal('hide');
-                    }, 100);
+                    }, 1000);
                 }
             },
             error: function (response) {

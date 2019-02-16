@@ -10,6 +10,7 @@ class AnalyzeController extends Controller
         global $container;
         $data = (array)$this->table->find(1);
         $data['settings'] = json_decode($data['settings']);
+        $data['lock'] = $this->checkLock();
         $container->view->render($res, 'download_and_analyze.twig', $data);
     }
 

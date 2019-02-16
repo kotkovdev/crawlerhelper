@@ -11,6 +11,7 @@ class ListController extends Controller
         global $container;
         $data = (array)$this->table->find(3);
         $data['settings'] = json_decode($data['settings']);
+        $data['lock'] = $this->checkLock();
         $container->view->render($res, 'list_resources.twig', $data);
     }
 
