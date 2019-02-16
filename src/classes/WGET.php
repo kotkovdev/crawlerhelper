@@ -241,6 +241,8 @@ class WGET {
         /*
          * Fixes for long URLs
          */
+        $url = str_replace('http://', '', $url);
+        $url = str_replace('https://', '', $url);
         $shortUrl = explode('/', $url);
         if (is_array($shortUrl) && count($shortUrl)) {
             $instanceName = $this->timestamp . '_' . $shortUrl[0];

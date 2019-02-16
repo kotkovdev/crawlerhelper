@@ -46,7 +46,11 @@ class ProcessController
 
     public function run()
     {
-        $result = shell_exec( '/usr/local/bin/php ' . $_SERVER['DOCUMENT_ROOT'] . '/../crawler.php  > /dev/null &');
+        if (file_exists('/usr/local/bin/ea-php71')) {
+            $result = shell_exec( ' /usr/local/bin/ea-php71 ' . $_SERVER['DOCUMENT_ROOT'] . '/../crawler.php  > /dev/null &');
+        } else {
+            $result = shell_exec( ' /usr/local/bin/php ' . $_SERVER['DOCUMENT_ROOT'] . '/../crawler.php  > /dev/null &');
+        }
         echo json_encode(['status' => 'done', 'result' => $result]);
     }
 
@@ -132,6 +136,18 @@ class ProcessController
                         $log[$key - 1],
                         '',
                         'broken link!!!'
+                    ];
+                }
+            } else {
+                if (strpos($line, '->')) {
+                    $str = explode(' ', $line);
+                    $out[] = [
+                        $str[0],
+                        $str[1],
+                        '',
+                        $str[2],
+                        '200',
+                        'OK'
                     ];
                 }
             }
