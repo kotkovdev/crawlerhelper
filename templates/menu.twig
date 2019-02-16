@@ -7,5 +7,8 @@
     <a class="js-arrow" href="/instlist"><i class="fas fa-bars"></i>Saved Instances</a>
     <hr>
     <a class="js-arrow" href="#" id="run-crawler">Run crawler</a>
+    {% if lock %}
+        <a class="js-arrow" href="#" id="manual-unlock">Remove lock-file</a>
+    {% endif %}
 </li>
 {% endblock %}

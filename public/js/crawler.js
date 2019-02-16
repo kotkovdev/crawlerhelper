@@ -10,7 +10,9 @@ $(function(){
                 $('#processing_modal').modal('show');
             },
             success: function() {
-                $('#processing_modal').modal('hide');
+                setTimeout(function() {
+                    $('#processing_modal').modal('hide');
+                }, 100);
             }
         });
         return false;
@@ -79,7 +81,9 @@ $(function(){
             dataType: 'json',
             success: function(response) {
                 if (response.status == 'done') {
-                    $('#processing_modal').modal('hide');
+                    setTimeout(function() {
+                        $('#processing_modal').modal('hide');
+                    }, 100);
                 }
             },
             error: function (response) {
@@ -87,6 +91,16 @@ $(function(){
             }
         });
         return false;
+    });
+
+    $('#manual-unlock').click(function(event) {
+        $.ajax({
+            type: 'get',
+            url: '/process/unlock',
+            success: function() {
+                $(event.target).remove();
+            }
+        });
     });
 });
 

@@ -10,4 +10,12 @@ class Controller {
     {
         $this->table = $table;
     }
+
+    public function checkLock() {
+        if (file_exists(LOCK_FILE)) {
+            return true;
+        } else {{
+            return false;
+        }}
+    }
 }

@@ -25,6 +25,7 @@ class JobsController extends Controller
             }
         }
         $data['jobs'] = $jobs;
+        $data['lock'] = $this->checkLock();
         $container->view->render($res, 'jobs.twig', $data);
     }
 

@@ -5,6 +5,7 @@ use Illuminate\Database\Query\Builder;
 use App\Classes\WGET as WGET;
 use App\Models\Queue as Queue;
 use App\Models\Instance as Instance;
+use mysql_xdevapi\Exception;
 
 class ProcessController
 {
@@ -116,14 +117,33 @@ class ProcessController
         $logPath = LOG_PATH . '/' . $instance->name . '.log';
         $log = file($logPath);
         $out = [];
-        foreach ($log as $line) {
-            if (strlen($line) > 10) {
-                if (strpos($line, 'URL:') && !strpos($line, '->')) {
+        foreach ($log as $key => $line) {
+            if (strlen($line) > 10 && !strpos($line, '->')) {
+                if (strpos($line, 'URL:')) {
                     $out[] = explode(' ', $line);
+                }
+
+                if (strpos($line, 'broken link!!!')) {
+                    $timestamp = strtotime(time());
+                    $out[] = [
+                        date('Y-m-d', $timestamp),
+                        date('H:i:s', $timestamp),
+                        'URL',
+                        $log[$key - 1],
+                        404,
+                        'broken link!!!'
+                    ];
                 }
             }
         }
         $instance->path = json_encode($out);
         $instance->save();
+    }
+
+    public static function unlock ()
+    {
+        if (file_exists(LOCK_FILE)) {
+            unlink(LOCK_FILE);
+        }
     }
 }

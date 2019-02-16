@@ -36,6 +36,11 @@ if (!isset($_SESSION['id'])) {
         $processController = new App\Controllers\ProcessController($container->get('db')->table('queue'), $container->get('db')->table('instances'));
         return $processController->run();
     });
+    $app->get('/process/unlock', function($req, $res, $args){
+        global $container;
+        $processController = new App\Controllers\ProcessController($container->get('db')->table('queue'), $container->get('db')->table('instances'));
+        return $processController->unlock();
+    });
     /*
      * POST
      */

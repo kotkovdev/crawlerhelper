@@ -13,6 +13,13 @@ define('LOG_PATH', __DIR__ . '/logs');
 require __DIR__ . '/vendor/autoload.php';
 
 session_start();
+$lockFileName = __DIR__ . '/process-start.txt';
+
+if (file_exists($lockFileName)) {
+    exit('Already runned' . PHP_EOL);
+} else {
+    file_put_contents($lockFileName, time());
+}
 
 // Instantiate the app
 $settings = require __DIR__ . '/src/settings.php';
@@ -31,4 +38,5 @@ require __DIR__ . '/src/middleware.php';
 
 global $container;
 $processController = new App\Controllers\ProcessController($container->get('db')->table('queue'), $container->get('db')->table('instances'));
-return $processController->process();
+$processController->process();
+unlink($lockFileName);

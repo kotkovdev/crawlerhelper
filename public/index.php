@@ -11,6 +11,7 @@ if (PHP_SAPI == 'cli-server') {
 
 define('PUBLIC_DIR', __DIR__);
 define('LOG_PATH', __DIR__ . '/../logs');
+define('LOCK_FILE',  __DIR__ . '/../process-start.txt');
 
 require __DIR__ . '/../vendor/autoload.php';
 

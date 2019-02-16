@@ -10,7 +10,7 @@
                     <th>URL</th>
                     <th>Job type</th>
                     <th>Settings</th>
-                    <!--<th>Executed command</th>-->
+                    <th>Executed command</th>
                     <th>Status</th>
                     <th></th>
                     <th></th>
@@ -49,9 +49,9 @@
                                 <p>Depth: {{ job.settings.depth }}</p>
                             {% endif %}
                         </td>
-                        <!--<td>
+                        <td>
                             <textarea name="" id="" cols="20" rows="5">{{ job.command }}</textarea>
-                        </td>-->
+                        </td>
                         <td>
                             {% if (job.status == 1) %}
                                 <span class="status--process">Prepared</span>
