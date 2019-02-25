@@ -128,10 +128,9 @@ class ProcessController
                 }
 
                 if (strpos($line, 'broken link!!!')) {
-                    $timestamp = strtotime(time());
                     $out[] = [
-                        date('Y-m-d', $timestamp),
-                        date('H:i:s', $timestamp),
+                        date('Y-m-d'),
+                        date('H:i:s'),
                         'URL',
                         $log[$key - 1],
                         '',
