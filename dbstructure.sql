@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS `crw_instances`;
 CREATE TABLE `crw_instances` (
   `id` int(6) DEFAULT NULL AUTO_INCREMENT,
   `url` varchar(255) NOT NULL,
-  `path` text NOT NULL,
+  `path` longtext NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_exists` int(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
