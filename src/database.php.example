@@ -1,0 +1,12 @@
+<?php
+$container = $app->getContainer();
+$container['settings']['db'] = [
+    'driver' => 'mysql',
+    'host' => 'localhost',
+    'database' => 'database',
+    'username' => 'foo',
+    'password' => 'bar',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => 'crw_',
+];

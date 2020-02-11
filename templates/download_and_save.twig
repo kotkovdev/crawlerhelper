@@ -1,0 +1,43 @@
+{%  extends "layout.twig" %}
+
+{% block body %}
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h3 class="text-center title-2">Download and save web site</h3>
+                </div>
+                <hr>
+                <form action="" method="post" novalidate="novalidate" id="crawler_form">
+                    <input type="hidden" name="type" value="2">
+                    <div class="form-group">
+                        <label for="sites">Site(s):</label>
+                        <textarea name="urls" id="sites" cols="80" rows="10" class="form-control">{{ settings.urls }}</textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="depth">Max Depth</label>
+                            <input type="number" name="depth" id="depth" value="{% if settings.depth and 11 > settings.depth > 0 %}{{ settings.depth }}{% else %}10{% endif %}" class="form-control">
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="ignore_robots_txt" name="ignore_robots_txt" {% if settings.ignore_robots_txt  == 'on' %} checked {% endif %}>
+                            <label class="form-check-label" for="ignore_robots_txt">Ignore robots.txt</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="span_hosts" name="span_hosts" {% if settings.span_hosts  == 'on' %} checked {% endif %}>
+                            <label class="form-check-label" for="span_hosts">span-hosts</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="convert_links" name="convert_links" {% if settings.convert_links  == 'on' %} checked {% endif %}>
+                            <label class="form-check-label" for="convert_links">convert-links</label>
+                        </div>
+                    </div>
+                    <div class="form-group float-right">
+                        <button class="btn btn-link save">Save changes</button>
+                        <button class="btn btn-primary processing" data-toggle="modal" data-target="#processing_modal">Processing</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

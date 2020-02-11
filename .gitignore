@@ -1,0 +1,9 @@
+/vendor/
+/logs/*
+!/logs/README.md
+.idea
+.DS_Store
+/cache/
+/src/database.php
+/public/upload
+.wget-hsts

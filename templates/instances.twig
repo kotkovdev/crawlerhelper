@@ -1,0 +1,37 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    {% if instances|length > 0 %}
+    <div class="table-responsive table-responsive-data2" id="instances">
+        <table class="table table-data2">
+            <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>URL</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for instance in instances %}
+                    <tr>
+                        <td><p>{{ instance.created_at }}</p></td>
+                        <td><p>{{ instance.url }}</p></td>
+                        {% if instance.is_exists == 1 %}
+                            <td class="status">Saved</td>
+                        {% else %}
+                            <td>Deleted</td>
+                        {% endif %}
+                        <td>
+                            <button class="btn btn-link delete {% if instance.is_exists == 0 %}disabled{% endif %}" data-id="{{ instance.id }}">Delete</button>
+                            <button class="btn btn-link show {% if instance.is_exists == 0 %}disabled{% endif %}" onclick="javascript:window.open('{{ instance.instance_url }}')">Show</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        The list of instances is empty
+    {% endif %}
+{% endblock %}

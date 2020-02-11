@@ -1,0 +1,91 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    {% if jobs|length > 0 %}
+        <div class="table-responsive table-responsive-data2">
+            <table class="table table-data2">
+                <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>URL</th>
+                    <th>Job type</th>
+                    <th>Settings</th>
+                    <th>Executed command</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for job in jobs %}
+                    <tr class="tr-shadow" id="job-{{ job.id }}">
+                        <td>{{ job.created_at }}</td>
+                        <td>
+                            {{ job.url }}
+                        </td>
+                        <td>
+                            {% if (job.type == 1) %}
+                                Download and analyze webpage
+                            {% elseif job.type == 2 %}
+                                Download website
+                            {% elseif job.type == 3 %}
+                                List URLs and resources
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if job.settings.ignore_robots_txt %}
+                                <p>Ignore robots.txt: on</p>
+                            {% endif %}
+
+                            {% if job.settings.span_hosts %}
+                                <p>Span hosts: on</p>
+                            {% endif %}
+
+                            {% if job.settings.convert_links %}
+                                <p>Convert links: on</p>
+                            {% endif %}
+
+                            {% if job.settings.depth %}
+                                <p>Depth: {{ job.settings.depth }}</p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <textarea name="" id="" cols="20" rows="5">{{ job.command }}</textarea>
+                        </td>
+                        <td>
+                            {% if (job.status == 1) %}
+                                <span class="status--process">Prepared</span>
+                            {% elseif (job.status == 2) %}
+                                <span class="status--process">Processing</span>
+                            {% elseif (job.status == 3) %}
+                                <span class="status--process">Complete</span>
+                            {% else %}
+                                <span class="status--denied">Error</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="table-data-feature">
+                                <a class="btn btn-link show-log {% if job.instance.name | length == 0 %} disabled {% endif %}" data-name="{{ job.instance.name }}" href="/jobs/log?name={{ job.instance.name }}" target="_blank">Show log</a>
+                                <button class="item remove-job" onclick="removeJob({{ job.id }});" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </button>
+                                {% if job.instance.is_exists != 0 %}
+                                    <button onclick="javascript:window.open('{{ job.instance_url }}')" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open instance">
+                                        <i class="zmdi zmdi-mail-send"></i>
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="spacer"></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+    {% else %}
+        The list of jobs is empty
+    {% endif %}
+{% endblock %}
